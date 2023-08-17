@@ -3,6 +3,120 @@
 Each release usually includes various fixes and improvements.
 The most noteworthy of these, as well as any features and breaking changes, are listed here.
 
+## 4.0.0-beta.3
+* Update lavaplayer to [`2.0.0`](https://github.com/lavalink-devs/lavaplayer/releases/tag/2.0.0) - Fixed YouTube 403 errors & YouTube access token errors
+
+## 4.0.0-beta.2
+* Update lavaplayer to [`08cfbc0`](https://github.com/Walkyst/lavaplayer-fork/commit/08cfbc05953128f3cf727ea3bcbe41dabcd1c7db) -  Fixed ogg streaming
+* Add JDA-NAS support for musl (`x86-64`, `aarch64`) based systems (most notably `alpine`)
+* New config option to specify the directory to load plugins from. `lavalink.pluginsDir` (defaults to `./plugins`)
+
+## 4.0.0-beta.1
+* New Lavalink now requires Java 17 or higher to run
+* **Removal of all websocket messages sent by the client. Everything is now done via [REST](IMPLEMENTATION.md#rest-api)**
+* Update to [Lavaplayer custom branch](https://github.com/Walkyst/lavaplayer-fork/tree/custom), which includes native support for artwork urls and ISRCs in the track info
+* Addition of full `Track` objects in following events: `TrackStartEvent`, `TrackEndEvent`, `TrackExceptionEvent`, `TrackStuckEvent`
+* Resuming a session now requires the `Session-Id` header instead of `Resume-Key` header
+* Reworked track loading result. For more info see [here](IMPLEMENTATION.md#track-loading-result)
+* Update to the [Protocol Module](protocol) to support Kotlin/JS
+* Removal of all `/v3` endpoints except `/version`. All other endpoints are now under `/v4`
+
+> **Warning**
+> This is a beta release, and as such, may contain bugs. Please report any bugs you find to the [issue tracker](https://github.com/lavalink-devs/Lavalink/issues/new/choose).
+> For more info on the changes in this release, see [here](IMPLEMENTATION.md#significant-changes-v370---v400)
+> If you have any question regarding the changes in this release, please ask in the [support server](https://discord.gg/ZW4s47Ppw4) or [GitHub discussions](https://github.com/lavalink-devs/Lavalink/discussions/categories/q-a)
+
+Contributors:
+[@topi314](https://github.com/topi314), [@freyacodes](https://github.com/freyacodes), [@DRSchlaubi](https://github.com/DRSchlaubi) and [@melike2d](https://github.com/melike2d)
+
+## 3.7.6
+* Update Lavaplayer to [`1.4.1`](https://github.com/Walkyst/lavaplayer-fork/releases/tag/1.4.1) & [`1.4.2`](https://github.com/Walkyst/lavaplayer-fork/releases/tag/1.4.2)
+* New support for `MUSL` based systems (most notably `alpine`)
+* New `alpine` docker image variant (use `-alpine` suffix)
+
+## 3.7.5
+* Fix `endTime` in `Player Update` endpoint only applying when playing a new track
+* Fix errors when doing multiple session resumes
+* Update lavaplayer to `1.4.0` see [here](https://github.com/Walkyst/lavaplayer-fork/releases/tag/1.4.0) for more info
+
+> **Note**
+> Lavalink Docker images are now found in the GitHub Container Registry instead of DockerHub
+
+## 3.7.4
+* Fix an issue where Lavalink would not destroy a session when a client disconnects
+
+## 3.7.3
+* Fix breaking change where `/decodetrack` would return a full track instead of the track info
+
+## 3.7.2
+* Fix breaking change where frameStats would be null instead of omitted
+
+## 3.7.1
+* Revert of application.yml autocreate as it can cause issues with differently named configs
+
+## 3.7.0
+* New REST API for player control and deprecation of all websocket OPs. For more info see [here](https://github.com/lavalink-devs/Lavalink/blob/master/IMPLEMENTATION.md#significant-changes-v360---v370)
+* Autocreate default `application.yml` if none was found. https://github.com/lavalink-devs/Lavalink/pull/781
+* New config option to disable jda nas. https://github.com/lavalink-devs/Lavalink/pull/780
+* New config option to disable specific filters. https://github.com/lavalink-devs/Lavalink/pull/779
+* Update lavaplayer to `1.3.99.2`. https://github.com/lavalink-devs/Lavalink/pull/794
+* Update udpqueue.rs to `v0.2.6`. https://github.com/lavalink-devs/Lavalink/pull/802
+
+Contributors:
+[@topi314](https://github.com/topi314), [@Devoxin](https://github.com/Devoxin), [@melike2d](https://github.com/melike2d), [@freyacodes](https://github.com/freyacodes), [@aikaterna](https://github.com/aikaterna), [@ooliver1](https://github.com/ooliver1)
+
+## 3.6.2
+* Update lavaplayer to `1.3.99.1`. For more info see [here](https://github.com/lavalink-devs/Lavalink/pull/773)
+
+## 3.6.1
+* Update lavaplayer to `1.3.99`. For more info see [here](https://github.com/lavalink-devs/Lavalink/pull/768)
+
+## 3.6.0
+* New userId & clientName getters in the plugin-api. For more info see [here](https://github.com/lavalink-devs/Lavalink/pull/743).
+
+Contributors: 
+[@melike2d](https://github.com/melike2d)
+
+## 3.5.1
+* Update udpqueue.rs to `0.2.5` which fixes crashes when ipv6 is disabled
+* Fix null socketContext in `IPlayer` for plugins
+* New `ping` field in player update. see https://github.com/lavalink-devs/Lavalink/pull/738 for more info
+
+Contributors: 
+[@topi314](https://github.com/topi314), [@Devoxin](https://github.com/Devoxin), and [@freyacodes](https://github.com/freyacodes)
+
+## 3.5
+* New plugin system. For more info see [here](https://github.com/lavalink-devs/Lavalink/blob/master/PLUGINS.md).
+* Add support for HTTP proxying via httpConfig. For more info see [here](https://github.com/lavalink-devs/Lavalink/pull/595).
+* Update koe version to 2.0.0-rc1.
+  - this fixes the WebSocketClosedEvent with code 1006 problem.
+* Fix error when enabling timescale and lowpass filters.
+* Fix player not playing after moving between voice chats or changing regions.
+* Fix guild ids sent as numbers in json.
+* Fix missing timescale natives.
+* Fix setting endMarkerHit to correctly set FINISHED as the reason.
+* Undeprecation of the `volume` property in the `play` OP.
+* Configurable track stuck threshold. For more info see [here](https://github.com/lavalink-devs/Lavalink/pull/676).
+* Add JDA-NAS support for more CPU Architectures. For more info see [here](https://github.com/lavalink-devs/Lavalink/pull/692). Big thanks goes to @MinnDevelopment here.
+* Update lavaplayer to [`1.3.98.4`](https://github.com/Walkyst/lavaplayer-fork/releases/tag/1.3.98.4) which fixes the latest yt cipher issues and age restricted tracks
+
+Contributors: 
+[@freyacodes](https://github.com/freyacodes), 
+[@davidffa](https://github.com/davidffa), 
+[@Walkyst](https://github.com/Walkyst), 
+[@topi314](https://github.com/topi314), 
+[@duncte123](https://github.com/duncte123), 
+[@Kodehawa](https://github.com/Kodehawa), 
+[@Devoxin](https://github.com/Devoxin), 
+[@Muh9049](https://github.com/Muh9049), 
+[@melike2d](https://github.com/melike2d), 
+[@ToxicMushroom](https://github.com/ToxicMushroom), 
+[@mooner1022](https://github.com/mooner1022), 
+[@rohank05](https://github.com/rohank05), 
+[@Fabricio20](https://github.com/Fabricio20), 
+[@TheEssemm](https://github.com/TheEssemm), and 
+[@jack1142](https://github.com/jack1142)
+
 ## 3.4
 * New filters system
 * Deprecation of `TrackExceptionEvent.error`, replaced by `TrackExceptionEvent.exception`
@@ -17,7 +131,7 @@ Contributors:
 [@DaliborTrampota](https://github.com/DaliborTrampota),
 [@Mandruyd](https://github.com/Mandruyd),
 [@Allvaa](https://github.com/@Allvaa), and
-[@TopiSenpai](https://github.com/TopiSenpai)
+[@topi314](https://github.com/topi314)
 
 ## 3.3.2.5
 * Update Lavaplayer to 1.3.76
@@ -171,13 +285,13 @@ server and port. Port is specified by `server.port`.
 **Please note**: Java 10 will be obsolete
 as of [September 2018 with the release of Java 11](http://www.java-countdown.xyz/). Expect a Lavalink major version release that will be targetting
 Java 11 by that time.
-* **Breaking:** Changes to the output of the /loadtracks endpoint. [\#91](https://github.com/freyacodes/Lavalink/pull/91), [\#114](https://github.com/freyacodes/Lavalink/pull/114), [\#116](https://github.com/freyacodes/Lavalink/pull/116)
-* **Breaking:** The Java client has been moved to a [new repository](https://github.com/freyacodes/Lavalink-Client).
-* **Breaking:** The Java client has been made generic. This is a breaking change so please read the [migration guide](https://github.com/freyacodes/Lavalink-Client#migrating-from-v2-to-v3).
-* Better configurable logging. [\#97](https://github.com/freyacodes/Lavalink/pull/97)
-* Add custom sentry tags, change sentry dsn configuration location. [\#103](https://github.com/freyacodes/Lavalink/pull/103)
-* Add Lavalink version header to websocket handshake. [\#111](https://github.com/freyacodes/Lavalink/pull/111)
-* Use git tags for easier version visibility. [\#129](https://github.com/freyacodes/Lavalink/pull/129)
+* **Breaking:** Changes to the output of the /loadtracks endpoint. [\#91](https://github.com/lavalink-devs/Lavalink/pull/91), [\#114](https://github.com/lavalink-devs/Lavalink/pull/114), [\#116](https://github.com/lavalink-devs/Lavalink/pull/116)
+* **Breaking:** The Java client has been moved to a [new repository](https://github.com/lavalink-devs/Lavalink-Client).
+* **Breaking:** The Java client has been made generic. This is a breaking change so please read the [migration guide](https://github.com/lavalink-devs/Lavalink-Client#migrating-from-v2-to-v3).
+* Better configurable logging. [\#97](https://github.com/lavalink-devs/Lavalink/pull/97)
+* Add custom sentry tags, change sentry dsn configuration location. [\#103](https://github.com/lavalink-devs/Lavalink/pull/103)
+* Add Lavalink version header to websocket handshake. [\#111](https://github.com/lavalink-devs/Lavalink/pull/111)
+* Use git tags for easier version visibility. [\#129](https://github.com/lavalink-devs/Lavalink/pull/129)
 
 Contributors:
 [@Devoxin](https://github.com/Devoxin),
@@ -186,9 +300,9 @@ Contributors:
 [@SamOphis](https://github.com/SamOphis)
 
 ## v2.2
-* Lavaplayer updated to 1.3.x [\#115](https://github.com/freyacodes/Lavalink/pull/115)
-* Version command line flag [\#121](https://github.com/freyacodes/Lavalink/pull/121)
-* Fix race condition in `/loadtracks` endpoint leading to some requests never completing [\#125](https://github.com/freyacodes/Lavalink/pull/125)
+* Lavaplayer updated to 1.3.x [\#115](https://github.com/lavalink-devs/Lavalink/pull/115)
+* Version command line flag [\#121](https://github.com/lavalink-devs/Lavalink/pull/121)
+* Fix race condition in `/loadtracks` endpoint leading to some requests never completing [\#125](https://github.com/lavalink-devs/Lavalink/pull/125)
 
 Contributors:
 [@Devoxin](https://github.com/Devoxin),
@@ -196,7 +310,7 @@ Contributors:
 [@napstr](https://github.com/napstr)
 
 ## v2.1
-* Add prometheus metrics [\#105](https://github.com/freyacodes/Lavalink/pull/105), [\#106](https://github.com/freyacodes/Lavalink/pull/106)
+* Add prometheus metrics [\#105](https://github.com/lavalink-devs/Lavalink/pull/105), [\#106](https://github.com/lavalink-devs/Lavalink/pull/106)
 
 Contributors:
 [@freyacodes](https://github.com/freyacodes/),
@@ -204,8 +318,8 @@ Contributors:
 [@Repulser](https://github.com/Repulser/)
 
 ## v2.0.1
-* Configurable playlist load limit [\#60](https://github.com/freyacodes/Lavalink/pull/60)
-* [Docker Releases](https://hub.docker.com/r/fredboat/lavalink/), [\#74](https://github.com/freyacodes/Lavalink/pull/74)
+* Configurable playlist load limit [\#60](https://github.com/lavalink-devs/Lavalink/pull/60)
+* [Docker Releases](https://hub.docker.com/r/fredboat/lavalink/), [\#74](https://github.com/lavalink-devs/Lavalink/pull/74)
 
 Contributors:
 [@Devoxin](https://github.com/Devoxin),
@@ -215,5 +329,5 @@ Contributors:
 [@Repulser](https://github.com/Repulser/)
 
 ## v2.0
-Please see [here](https://github.com/freyacodes/Lavalink/commit/b8dd3c8a7e186755c1ab343d19a552baecf138e7)
-and [here](https://github.com/freyacodes/Lavalink/commit/08a34c99a47a18ade7bd14e6c55ab92348caaa88)
+Please see [here](https://github.com/lavalink-devs/Lavalink/commit/b8dd3c8a7e186755c1ab343d19a552baecf138e7)
+and [here](https://github.com/lavalink-devs/Lavalink/commit/08a34c99a47a18ade7bd14e6c55ab92348caaa88)
