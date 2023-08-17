@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loe-bot-deployment
+  namespace: botnamespace
+  labels:
+    app: loe-bot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: loe-bot
+  template:
+    metadata:
+      labels:
+        app: loe-bot
+    spec:
+     containers:
+      - name: loe-bot-container
+        image: theetails/loe-music-bot:1.0.7
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu:    "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "250m"
+        env:
+        - name: LAVA_HOST_PORT
+          valueFrom:
+            secretKeyRef:
+              name: bot-ports
+              key: LAVA_PORT
+        - name: LAVA_HOST
+          valueFrom:
+            secretKeyRef:
+              name: lava-creds
+              key: LAVA_HOST
+        - name: LAVA_PSD
+          valueFrom:
+            secretKeyRef:
+              name: lava-creds
+              key: LAVA_PSD

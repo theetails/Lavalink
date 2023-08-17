@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: lavalink-configuration
+data:
+  # property-like keys; each key maps to a simple value
+  admin: "theetails"
+  embed.color: "#2f3136"
+  icon.url: "https://cdn.discordapp.com/attachments/598264548918689867/961063715107639327/version_2.gif"
+  server.deafen: "true"
+  default.volume: "100"
+  support.server: "https://youtu.be/dQw4w9WgXcQ?t=42"
+  issues: "https://github.com/League-of-US/Discord-MusicBot/issues"
+  permissions: "277083450689"
+  disconnect.time: "30000"
+  alwaysplay: "true"
+  debug: "false"
+
+  lava.node.identifier: "Main Node"
+  lava.node.retryAmount: "200"
+  lava.node.retryDelay: "40"
+  lava.node.secure: "false"
